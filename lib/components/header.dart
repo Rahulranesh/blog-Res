@@ -1,11 +1,16 @@
 import 'package:blogapp/components/socal.dart';
 import 'package:blogapp/components/web_menu.dart';
+import 'package:blogapp/Controllers/menu_controller.dart';
+
 import 'package:blogapp/constants.dart';
+import 'package:blogapp/responsive.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class Header extends StatelessWidget {
-  const Header({super.key});
+  final menuController _controller = Get.put(menuController());
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +26,19 @@ class Header extends StatelessWidget {
             constraints: const BoxConstraints(maxWidth: kMaxWidth),
             child: Row(
               children: [
+                if (!Responsive.isDesktop(context))
+                  IconButton(
+                    onPressed: () {
+                      _controller.openOrcloseDrawer();
+                    },
+                    icon: Icon(
+                      Icons.menu,
+                      color: Colors.white,
+                    ),
+                  ),
                 SvgPicture.asset('assets/icons/logo.svg'),
                 const Spacer(),
-                WebMenu(),
+                if (Responsive.isDesktop(context)) WebMenu(),
                 const Spacer(),
                 const Socal(),
               ],
@@ -71,8 +86,18 @@ class Header extends StatelessWidget {
               ),
             ),
           ),
+          if (Responsive.isDesktop(context))
+            SizedBox(
+              height: kDefaultPadding,
+            )
         ],
       ),
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('MenuController', MenuController));
   }
 }

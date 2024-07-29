@@ -1,12 +1,14 @@
 import 'package:blogapp/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:get/get.dart';
+
+import 'package:blogapp/Controllers/menu_controller.dart';
 
 class WebMenu extends StatelessWidget {
   WebMenu({Key? key}) : super(key: key);
 
-  final MenuController _controller = Get.put(MenuController());
+  final menuController _controller = Get.put(menuController());
 
   @override
   Widget build(BuildContext context) {
@@ -72,16 +74,5 @@ class _WebMenuItemState extends State<WebMenuItem> {
         ],
       ),
     );
-  }
-}
-
-class MenuController extends GetxController {
-  RxInt _selectedIndex = 0.obs;
-  int get selectedIndex => _selectedIndex.value;
-  List<String> get menuItems =>
-      ['Cases', 'Services', 'About Us', 'Careers', 'Blog', 'Contact'];
-
-  void setMenuIndex(int index) {
-    _selectedIndex.value = index;
   }
 }

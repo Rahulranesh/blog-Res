@@ -1,5 +1,6 @@
 import 'package:blogapp/constants.dart'; // Ensure this file is properly set up
 import 'package:blogapp/models/Blog.dart';
+import 'package:blogapp/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // Import the correct package for SVGs
 
@@ -50,8 +51,10 @@ class BlogPostCard extends StatelessWidget {
               const SizedBox(height: kDefaultPadding),
               Text(
                 blog.title,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  fontSize: 32,
+                  fontSize: Responsive.isDesktop(context) ? 32 : 24,
                   fontFamily: 'Raleway',
                   height: 1.3,
                   color: kDarkBlackColor,
