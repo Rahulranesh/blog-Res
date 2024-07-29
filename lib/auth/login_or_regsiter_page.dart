@@ -2,7 +2,6 @@ import 'package:blogapp/pages/login_page.dart';
 import 'package:blogapp/pages/register_page.dart';
 import 'package:flutter/material.dart';
 
-
 class LoginOrRegister extends StatefulWidget {
   const LoginOrRegister({super.key});
 
@@ -26,9 +25,9 @@ class _LoginOrRegisterState extends State<LoginOrRegister> {
   @override
   Widget build(BuildContext context) {
     if (showLoginPage) {
-      return LoginPage(onTap: togglePage);
+      return LoginPage();
     } else {
-      return RegisterPage(onTap: togglePage);
+      return RegisterPage();
     }
   }
 }

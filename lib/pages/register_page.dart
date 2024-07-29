@@ -1,114 +1,60 @@
-import 'package:blogapp/components/my_button.dart';
-import 'package:blogapp/components/my_textfield.dart';
-import 'package:blogapp/pages/home_page.dart';
+import 'package:blogapp/services/api_service.dart';
 import 'package:flutter/material.dart';
+import 'package:blogapp/services/api_service.dart';
 
 class RegisterPage extends StatefulWidget {
-  final void Function()? onTap;
-  RegisterPage({super.key, required this.onTap});
-
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController userNameController = TextEditingController();
+  final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
-  final TextEditingController passwordController = TextEditingController();
+  void _register() async {
+    final username = _usernameController.text;
+    final email = _emailController.text;
+    final password = _passwordController.text;
+
+    final response = await ApiService.registerUser(username, email, password);
+    if (response.statusCode == 201) {
+      // Navigate to login page or show success message
+      print('Registration successful');
+    } else {
+      // Show error message
+      print("Registration failed: ${response.statusCode} ${response.body}");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          //logo
-          Icon(
-            Icons.lock_open_rounded,
-            size: 100,
-            color: Theme.of(context).colorScheme.inversePrimary,
-          ),
-          SizedBox(
-            height: 25,
-          ),
-
-          //welcome msg
-          Text(
-            'Lets create an account for you',
-            style: TextStyle(
-              fontSize: 16,
-              color: Theme.of(context).colorScheme.inversePrimary,
+      appBar: AppBar(title: Text('Register')),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: _usernameController,
+              decoration: InputDecoration(labelText: 'Username'),
             ),
-          ),
-          SizedBox(
-            height: 25,
-          ),
-
-          //email
-          MyTextField(
-              controller: userNameController,
-              hintText: 'Enter the username',
-              obscureText: false),
-          SizedBox(
-            height: 10,
-          ),
-
-          //password
-          MyTextField(
-              controller: emailController,
-              hintText: 'Enter the email',
-              obscureText: false),
-          SizedBox(
-            height: 10,
-          ),
-          //confirmPassword
-          MyTextField(
-              controller: passwordController,
-              hintText: 'Confirm password',
-              obscureText: true),
-          SizedBox(
-            height: 20,
-          ),
-
-          //sign-up
-          MyButton(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Homepage(),
-                    ));
-              },
-              text: 'Sign-Up'),
-
-          SizedBox(
-            height: 25,
-          ),
-
-          //register
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Already have an account ?',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.inversePrimary,
-                ),
-              ),
-              GestureDetector(
-                onTap: widget.onTap,
-                child: Text(
-                  'Login now ',
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.inversePrimary,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
-          ),
-        ],
+            TextField(
+              controller: _emailController,
+              decoration: InputDecoration(labelText: 'Email'),
+            ),
+            TextField(
+              controller: _passwordController,
+              decoration: InputDecoration(labelText: 'Password'),
+              obscureText: true,
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _register,
+              child: Text('Register'),
+            ),
+          ],
+        ),
       ),
     );
   }

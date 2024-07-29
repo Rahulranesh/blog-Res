@@ -1,6 +1,7 @@
 import 'package:blogapp/auth/login_or_regsiter_page.dart';
 import 'package:blogapp/pages/home_page.dart';
 import 'package:blogapp/pages/login_page.dart';
+import 'package:blogapp/pages/register_page.dart';
 import 'package:blogapp/themes/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SafeArea(child: Homepage()),
+      home: SafeArea(child: RegisterPage()),
       theme: Provider.of<ThemeProvider>(context).themeData,
     );
   }

@@ -53,10 +53,10 @@ class MyDrawer extends StatelessWidget {
           MyDrawerTile(
             icon: Icons.logout,
             onTap: () {
-              Navigator.push(
+              var push = Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => LoginPage(onTap: () {}),
+                    builder: (context) => LoginPage(),
                   ));
             },
             text: 'L O G O U T ',
