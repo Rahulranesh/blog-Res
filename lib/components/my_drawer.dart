@@ -56,7 +56,9 @@ class MyDrawer extends StatelessWidget {
               var push = Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => LoginPage(),
+                    builder: (context) => LoginPage(
+                      onTap: () {},
+                    ),
                   ));
             },
             text: 'L O G O U T ',

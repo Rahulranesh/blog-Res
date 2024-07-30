@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SafeArea(child: RegisterPage()),
+      home: SafeArea(child: LoginOrRegister()),
       theme: Provider.of<ThemeProvider>(context).themeData,
     );
   }

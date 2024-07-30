@@ -2,20 +2,18 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  static const String baseUrl = 'http://192.168.106.180';
+  static const String baseUrl = 'http://192.168.245.187';
 
   static Future<http.Response> loginUser(String email, String password) async {
     try {
-      final response = await http.post(
-        Uri.parse('$baseUrl/api/users/login'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, String>{
-          'email': email,
-          'password': password,
-        }),
-      );
+      final response = await http.post(Uri.parse('$baseUrl/api/users/login'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, String>{
+            'email': email,
+            'password': password,
+          }));
       return response;
     } catch (e) {
       print('Error logging in: $e');
